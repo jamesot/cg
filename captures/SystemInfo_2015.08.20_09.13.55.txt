@@ -1,0 +1,34 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        42bbfc80 com.danielmerrill.defind/.MainActivity filter 42bbfdf8
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Key Set Manager:
+  [com.danielmerrill.defind]
+      Signing KeySets: 14
+
+Packages:
+  Package [com.danielmerrill.defind] (42490198):
+    userId=10220 gids=[3003]
+    pkg=Package{42bbefc0 com.danielmerrill.defind}
+    codePath=/data/app/com.danielmerrill.defind-2.apk
+    resourcePath=/data/app/com.danielmerrill.defind-2.apk
+    nativeLibraryPath=/data/app-lib/com.danielmerrill.defind-2
+    versionCode=2000001 targetSdk=22
+    versionName=1.0
+    applicationInfo=ApplicationInfo{42bbf070 com.danielmerrill.defind}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    dataDir=/data/data/com.danielmerrill.defind
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2015-08-18 00:20:44
+    firstInstallTime=2015-08-16 12:47:17
+    lastUpdateTime=2015-08-18 00:20:50
+    signatures=PackageSignatures{42490260 [42490c18]}
+    permissionsFixed=true haveGids=true installStatus=1
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0:  installed=true blocked=false stopped=false notLaunched=false enabled=0
+    grantedPermissions:
+      android.permission.CAMERA
+      android.permission.INTERNET

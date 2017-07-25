@@ -1,0 +1,80 @@
+AGGREGATED OVER LAST 24 HOURS:
+Per-Package Stats:
+  * com.danielmerrill.defind / u0a220:
+      * com.danielmerrill.defind / u0a220:
+               TOTAL: 3.8% (29MB-35MB-51MB/28MB-33MB-49MB over 29)
+                 Top: 3.8% (29MB-35MB-51MB/28MB-33MB-49MB over 29)
+          (Last Act): 1.5% (19MB-29MB-52MB/18MB-27MB-51MB over 9)
+            (Cached): 0.16% (22MB-22MB-22MB/20MB-20MB-20MB over 1)
+
+Summary:
+  * com.danielmerrill.defind / u0a220:
+           TOTAL: 3.8% (29MB-35MB-51MB/28MB-33MB-49MB over 29)
+             Top: 3.8% (29MB-35MB-51MB/28MB-33MB-49MB over 29)
+      (Last Act): 1.5% (19MB-29MB-52MB/18MB-27MB-51MB over 9)
+        (Cached): 0.16% (22MB-22MB-22MB/20MB-20MB-20MB over 1)
+
+Run time Stats:
+  SOff/Norm: +4h25m25s230ms
+       Low : +35m23s2ms
+       Crit: +2h10m45s647ms
+  SOn /Norm: +34m7s771ms
+       Mod : +982ms
+       Low : +19m15s727ms
+       Crit: +1h13m22s962ms
+      TOTAL: +9h18m21s321ms
+
+          Start time: 2015-08-19 08:40:24
+  Total elapsed time: +23h34m40s55ms (partial) libdvm.so chromeview
+
+AGGREGATED OVER LAST 3 HOURS:
+Per-Package Stats:
+  * com.danielmerrill.defind / u0a220:
+      * com.danielmerrill.defind / u0a220:
+               TOTAL: 7.4% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+                 Top: 7.4% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+          (Last Act): 0.55% (31MB-31MB-31MB/30MB-30MB-30MB over 1)
+            (Cached): 0.01%
+
+Summary:
+  * com.danielmerrill.defind / u0a220:
+           TOTAL: 7.4% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+             Top: 7.4% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+      (Last Act): 0.55% (31MB-31MB-31MB/30MB-30MB-30MB over 1)
+        (Cached): 0.01%
+
+Run time Stats:
+  SOff/Norm: +31m33s463ms
+  SOn /Norm: +5m32s673ms
+       Low : +1m30s912ms
+       Crit: +2s402ms
+      TOTAL: +38m39s450ms
+
+          Start time: 2015-08-20 03:17:28
+  Total elapsed time: +5h56m10s669ms (partial) libdvm.so chromeview
+
+CURRENT STATS:
+Per-Package Stats:
+  * com.danielmerrill.defind / u0a220:
+      * com.danielmerrill.defind / u0a220:
+               TOTAL: 33% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+                 Top: 33% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+          (Last Act): 2.4% (31MB-31MB-31MB/30MB-30MB-30MB over 1)
+            (Cached): 0.03%
+
+Summary:
+  * com.danielmerrill.defind / u0a220:
+           TOTAL: 33% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+             Top: 33% (31MB-32MB-32MB/29MB-30MB-31MB over 2)
+      (Last Act): 2.4% (31MB-31MB-31MB/30MB-30MB-30MB over 1)
+        (Cached): 0.03%
+
+Run time Stats:
+  SOff/Norm: +2m31s974ms
+  SOn /Norm: +4m34s115ms
+       Low : +1m29s902ms (running)
+       Crit: +2s402ms
+      TOTAL: +8m38s393ms
+
+          Start time: 2015-08-20 08:19:00
+  Total elapsed time: +54m39s341ms (partial) libdvm.so chromeview

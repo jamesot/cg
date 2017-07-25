@@ -1,0 +1,46 @@
+{
+  "buildFiles": [
+    "/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Android.mk",
+    "/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Application.mk"
+  ],
+  "cleanCommands": [
+    "/Users/stephineosoro/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDEBUG\u003d1 APP_PLATFORM\u003dandroid-15 NDK_OUT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj NDK_LIBS_OUT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/build/intermediates/ndkBuild/arm7/debug/lib clean"
+  ],
+  "libraries": {
+    "train-arm7Debug-armeabi-v7a": {
+      "buildCommand": "/Users/stephineosoro/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDEBUG\u003d1 APP_PLATFORM\u003dandroid-15 NDK_OUT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj NDK_LIBS_OUT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/build/intermediates/ndkBuild/arm7/debug/lib /Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj/local/armeabi-v7a/libtrain.so",
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "train",
+      "files": [
+        {
+          "src": "/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/train.cpp",
+          "flags": "\"-gcc-toolchain\" \"/Users/stephineosoro/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64\" \"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-Wno-invalid-command-line-argument\" \"-Wno-unused-command-line-argument\" \"-no-canonical-prefixes\" \"-fno-integrated-as\" \"-g\" \"-target\" \"armv7-none-linux-androideabi\" \"-march\u003darmv7-a\" \"-mfloat-abi\u003dsoftfp\" \"-mfpu\u003dvfpv3-d16\" \"-fno-exceptions\" \"-fno-rtti\" \"-mthumb\" \"-Os\" \"-DNDEBUG\" \"-I/Users/stephineosoro/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include\" \"-I/Users/stephineosoro/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include\" \"-I/Users/stephineosoro/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward\" \"-I/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni\" \"-DANDROID\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-frtti\" \"-fexceptions\" \"-std\u003dc++11\" \"-isystem\" \"/Users/stephineosoro/Library/Android/sdk/ndk-bundle/platforms/android-15/arch-arm/usr/include\""
+        }
+      ],
+      "output": "/Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj/local/armeabi-v7a/libtrain.so"
+    },
+    "mixed_sample-arm7Debug-armeabi-v7a": {
+      "buildCommand": "/Users/stephineosoro/Library/Android/sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/Application.mk APP_ABI\u003darmeabi-v7a NDK_ALL_ABIS\u003darmeabi-v7a NDEBUG\u003d1 APP_PLATFORM\u003dandroid-15 NDK_OUT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj NDK_LIBS_OUT\u003d/Users/stephineosoro/AndroidStudioProjects/Cadre/app/build/intermediates/ndkBuild/arm7/debug/lib /Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj/local/armeabi-v7a/libmixed_sample.so",
+      "toolchain": "toolchain-armeabi-v7a",
+      "abi": "armeabi-v7a",
+      "artifactName": "mixed_sample",
+      "files": [
+        {
+          "src": "/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni/jni_part.cpp",
+          "flags": "\"-gcc-toolchain\" \"/Users/stephineosoro/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64\" \"-fpic\" \"-ffunction-sections\" \"-funwind-tables\" \"-fstack-protector-strong\" \"-Wno-invalid-command-line-argument\" \"-Wno-unused-command-line-argument\" \"-no-canonical-prefixes\" \"-fno-integrated-as\" \"-g\" \"-target\" \"armv7-none-linux-androideabi\" \"-march\u003darmv7-a\" \"-mfloat-abi\u003dsoftfp\" \"-mfpu\u003dvfpv3-d16\" \"-fno-exceptions\" \"-fno-rtti\" \"-mthumb\" \"-Os\" \"-DNDEBUG\" \"-I/Users/stephineosoro/Downloads/OpenCV-android-sdk/sdk/native/jni/include/opencv\" \"-I/Users/stephineosoro/Downloads/OpenCV-android-sdk/sdk/native/jni/include\" \"-I/Users/stephineosoro/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include\" \"-I/Users/stephineosoro/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/include\" \"-I/Users/stephineosoro/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward\" \"-I/Users/stephineosoro/AndroidStudioProjects/Cadre/app/src/main/jni\" \"-DANDROID\" \"-fPIC\" \"-DANDROID\" \"-fsigned-char\" \"-Wa,--noexecstack\" \"-Wformat\" \"-Werror\u003dformat-security\" \"-frtti\" \"-fexceptions\" \"-std\u003dc++11\" \"-isystem\" \"/Users/stephineosoro/Library/Android/sdk/ndk-bundle/platforms/android-15/arch-arm/usr/include\""
+        }
+      ],
+      "output": "/Users/stephineosoro/AndroidStudioProjects/Cadre/app/.externalNativeBuild/ndkBuild/arm7Debug/obj/local/armeabi-v7a/libmixed_sample.so"
+    }
+  },
+  "toolchains": {
+    "toolchain-armeabi-v7a": {
+      "cppCompilerExecutable": "/Users/stephineosoro/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

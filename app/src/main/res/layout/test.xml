@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/test">
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_gravity="left">
+        <ImageView
+            android:id="@+id/navLogo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/danName"
+            android:layout_width="250dp"
+            android:src="@drawable/dan_name"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
+        <ImageView
+            android:id="@+id/danContact"
+            android:layout_width="170dp"
+            android:layout_height="20dp"
+            android:src="@drawable/dan_email"
+            android:layout_gravity="center_horizontal|bottom"
+            />
+        <ImageView
+            android:id="@+id/dylanName"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:src="@drawable/dylan_name"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp" />
+        <ImageView
+            android:id="@+id/dylanContact"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:src="@drawable/dylan_email"
+            android:layout_gravity="center_horizontal"
+            />
+        <ImageView
+            android:id="@+id/navWordnik"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:src="@drawable/wordnik"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal|top"
+            />
+    </LinearLayout>
+
+</LinearLayout>
