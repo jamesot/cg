@@ -579,8 +579,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //        train(digits,trainedValues);
     }
 
-    public void trainDigits(String number,Mat digits) {
-        Trainer.TrainDigits(number,digits);
+    public void trainDigits(String number,Mat digits,ArrayList<Mat> digit) {
+        Trainer.TrainDigits(number,digits,digit);
         mDetector.setPaused(false);
         mDetector.setLocked(false);
     }

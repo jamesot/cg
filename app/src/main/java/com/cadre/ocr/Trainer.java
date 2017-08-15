@@ -382,9 +382,9 @@ public class Trainer extends Activity implements CvCameraViewListener2 {
 
     }
 
-    public static void TrainDigits(String stringNumber,Mat mat) {
+    public static void TrainDigits(String stringNumber,Mat mat,ArrayList<Mat> digits) {
         Log.e("input is", stringNumber+"");
-
+//        Mat mat =digits.get(j);
         Mat last = new Mat();
             boolean first=false;
         int firstDigit = Integer.parseInt(stringNumber.charAt(0)+"");

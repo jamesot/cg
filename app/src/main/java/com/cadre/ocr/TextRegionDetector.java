@@ -562,7 +562,9 @@ public class TextRegionDetector {
 //                mainActivity.train(mats, splitViaString(number,first),mat);
 
 //                TODO passing the whole image and number for training - Prefereably use an intent to show image so as to train
-                mainActivity.trainDigits(input.getText().toString(), mat);
+//                mainActivity.trainDigits(input.getText().toString(), mat);
+                mainActivity.trainDigits(input.getText().toString(), mat,mats);
+
 //                paused = false;
 
             }

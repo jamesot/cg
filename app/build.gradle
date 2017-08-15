@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 24
+    buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.cadre.ocr"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 24
         versionCode 3
         versionName '0.0.3'
         externalNativeBuild {
@@ -92,11 +92,19 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    /*compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:design:22.2.1'*/
+
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
     compile project(':libraries:tess-two')
 //    compile project(':openCVLibrary310')
     compile project(':libraries:opencv')
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
 }
+
 
