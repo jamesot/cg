@@ -336,13 +336,16 @@ public class Trainer extends Activity implements CvCameraViewListener2 {
     }
 
 
-    public static void TrainApp(ArrayList<Mat> digits, ArrayList<Integer> values) {
+    public static void TrainApp(ArrayList<Mat> digits, ArrayList<Integer> values,Mat mat2) {
 
 
         Mat mat3 = new Mat();
 //        int i = 0;
         Log.e("size",digits.size()+"");
 
+
+
+//      TODO  Training the array of digits and array of numbers representing each digit
         for (int j = 0; j <digits.size()-1; j++) {
             Mat mat =digits.get(j);
             Mat last = new Mat();
@@ -379,11 +382,40 @@ public class Trainer extends Activity implements CvCameraViewListener2 {
 
     }
 
+    public static void TrainDigits(String stringNumber,Mat mat) {
+        Log.e("input is", stringNumber+"");
+
+        Mat last = new Mat();
+            boolean first=false;
+        int firstDigit = Integer.parseInt(stringNumber.charAt(0)+"");
+        Log.e("first digit",""+firstDigit);
+        if(firstDigit==0){
+            Log.e("first","first set true");
+            first=true;
+        }
+        int number = Integer.parseInt(stringNumber);
+
+        ArrayList<Integer> result = TextRegionDetector.splitViaString(number, first);
+
+        int[] array = new int[result.size()];
+
+        for (int i = 0; i < result.size(); i++) {
+            array[i]=result.get(i);
+        }
+            Traindigits(mat.getNativeObjAddr(), last.getNativeObjAddr(), array);
+            write(String.format("%d_%s", Calendar.getInstance().getTimeInMillis(), "processed_boxesk_" + number) + ".png", mat);
+            write(String.format("%d_%s", Calendar.getInstance().getTimeInMillis(), "processed_lastk_" + number) + ".png", last);
+
+    }
+
+
     public static native void Detect(long mat, long done);
 
     public static native void kirti(long mat, long done, long last, long digit);
 
     public static native void Train(long mat, long done, long digit);
+    public static native void Traindigits(long mat, long done, int[] digit);
+
 
 
     //    ArrayList<MatOfPoint> contours;

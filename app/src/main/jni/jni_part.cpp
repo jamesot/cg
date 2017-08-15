@@ -9,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <stdio.h>
+#include <math.h>
 
 using namespace std;
 using namespace cv;
@@ -1065,3 +1067,335 @@ Java_com_cadre_ocr_Trainer_Train(JNIEnv *env, jclass type, jlong mat, jlong done
 //    exit(1);
 
 }
+
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_cadre_ocr_Trainer_Traindigits(JNIEnv *env, jclass type, jlong mat, jlong done,
+                                       jintArray digit) {
+
+// TODO Training my algorithm
+    const int MIN_CONTOUR_AREA = 200;
+    const int RESIZED_IMAGE_WIDTH = 20;
+    const int RESIZED_IMAGE_HEIGHT = 30;
+
+
+    std::vector<ContourWithData> allContoursWithData;
+    std::vector<ContourWithData> validContoursWithData;
+
+
+    Mat &image = *(Mat *) mat;
+    Mat &processed = *(Mat *) done;
+//    Mat &lastOne = *(Mat *) done;
+//    int number = (int) digit;
+
+    cv::Mat imgTrainingNumbers;
+    cv::Mat imgGrayscale;
+    cv::Mat imgBlurred;
+    cv::Mat imgThresh;
+    cv::Mat imgThreshCopy;
+
+    std::vector<std::vector<cv::Point> > ptContours;
+    std::vector<cv::Vec4i> v4iHierarchy;
+
+    cv::Mat matClassificationInts;
+    cv::Mat oldMatClassificationInts;
+    Mat src_gray;
+    cv::Mat matTrainingImagesAsFlattenedFloats;
+    cv::Mat oldmatTrainingImagesAsFlattenedFloats;
+
+    std::vector<int> intValidChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+    imgTrainingNumbers = image;
+
+    int thresh = 100;
+    int max_thresh = 255;
+    RNG rng(12345);
+
+   /* int n, y = 0;
+
+    y = number;
+    while (y != 0) {
+        n += 1;
+        y /= 10;
+    }
+
+//printing separated digits
+    int i;
+    for (i = ceil(pow(10, (n - 1))); i != 0; i /= 10) {
+        printf("%d  ", (number / i) % 10);
+    }*/
+
+
+    // initializations, declarations, etc
+    int *c_array;
+    jint i = 0;
+    jboolean isCopy;
+
+    jsize len = env->GetArrayLength(digit);
+
+    // get a pointer to the array &isCopy
+    c_array =  env->GetIntArrayElements(digit, 0);
+
+    __android_log_print(ANDROID_LOG_ERROR, "Number 0 read is:", "%d",c_array[0]);
+
+    // do some exception checking
+   /* if (c_array == NULL) {
+        return -1; *//* exception occurred *//*
+    }*/
+//    (*env)->GetArrayLength(env, digit);
+    // do stuff to the array
+//    TODO I don't need looping through this array
+    /*for (i=0; i<len; i++) {
+        c_array[i] =   digit[i];
+    }*/
+
+    for (i=0; i<len; i++) {
+        __android_log_print(ANDROID_LOG_ERROR, "Number read is:", "%d",c_array[i] );
+    }
+
+
+    setInput(image);
+
+/// Convert image to gray and blur it
+    cvtColor(image, src_gray, CV_BGR2GRAY);
+    blur(src_gray, src_gray, Size(3, 3));
+
+
+    if (imgTrainingNumbers.empty()) {
+//        std::cout << "error: image not read from file\n\n";
+        __android_log_print(ANDROID_LOG_ERROR, "Number read is:", "%s",
+                            "Image Cannot be read from file");
+
+        exit(1);
+    }
+
+
+    Mat threshold_output;
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+
+//    TODO Setting up initial variables
+
+
+
+//   TODO Passing path to classifications file
+//    cv::FileStorage fileStorage
+
+    cv::FileStorage fClassifications("/storage/emulated/0/EneoCV/classificationsData.xml",
+                                     cv::FileStorage::READ);
+
+    if (fClassifications.isOpened() == false) {
+//        TODO Log failure
+        __android_log_print(ANDROID_LOG_ERROR, "failed to open classifications:", "%s", "");
+
+    }
+
+
+    cv::FileStorage fTrainingImages("/storage/emulated/0/EneoCV/imagesData.xml",
+                                    cv::FileStorage::READ);
+
+    if (fTrainingImages.isOpened() == false) {
+//        TODO Log failure
+        __android_log_print(ANDROID_LOG_ERROR, "failed to open images:", "%s", "");
+    }
+
+    if (fClassifications.isOpened() == true) {
+        fClassifications["classifications"] >> oldMatClassificationInts;
+        matClassificationInts.push_back(oldMatClassificationInts);
+        fClassifications.release();
+    }
+
+    if (fTrainingImages.isOpened() == true) {
+        fTrainingImages["images"] >> oldmatTrainingImagesAsFlattenedFloats;
+        matTrainingImagesAsFlattenedFloats.push_back(oldmatTrainingImagesAsFlattenedFloats);
+        fTrainingImages.release();
+    }
+
+
+//    cv::Ptr<cv::ml::KNearest>  kNearest(cv::ml::KNearest::create());
+//    TODO not required
+/* Ptr<ml::KNearest> kNearest = ml::KNearest::create();
+
+ kNearest->train(matTrainingImagesAsFlattenedFloats, cv::ml::ROW_SAMPLE, matClassificationInts);
+*/
+
+//    TODO Ending initial variables section
+
+/// Detect edges using Threshold
+    threshold(src_gray, threshold_output, thresh, 255, THRESH_BINARY);
+/// Find contours
+    findContours(threshold_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE,
+                 Point(0, 0));
+
+/// Approximate contours to polygons + get bounding rects and circles
+    vector<vector<Point> > contours_poly(contours.size());
+    vector<Rect> boundRect(contours.size());
+    vector<Point2f> center(contours.size());
+    vector<float> radius(contours.size());
+
+
+//    TODO Filtering contours
+
+    for (int i = 0; i < contours.size(); i++) {
+        ContourWithData contourWithData;
+        if (contours[i].size() > 300 && contours[i].size() < 1000) {
+            contourWithData.ptContour = contours[i];
+            approxPolyDP(Mat(contours[i]), contours_poly[i], 3, true);
+            boundRect[i] = boundingRect(Mat(contours_poly[i]));
+
+            contourWithData.boundingRect = boundRect[i];
+            contourWithData.fltArea = cv::contourArea(contourWithData.ptContour);
+            allContoursWithData.push_back(contourWithData);
+            __android_log_print(ANDROID_LOG_ERROR, "Contour Size:", "%d", contours[i].size());
+
+        } else {
+            __android_log_print(ANDROID_LOG_ERROR, "Contour Size Ignored:", "%d",
+                                contours[i].size());
+        }
+
+
+/*approxPolyDP(Mat(contours[i]), contours_poly[i], 3, true);
+boundRect[i] = boundingRect(Mat(contours_poly[i]));
+
+contourWithData.boundingRect = boundRect[i];
+contourWithData.fltArea = cv::contourArea(contourWithData.ptContour);
+allContoursWithData.push_back(contourWithData);*/
+    }
+
+    for (int i = 0; i < allContoursWithData.size(); i++) {
+        if (allContoursWithData[i].checkIfContourIsValid()) {
+            validContoursWithData.push_back(allContoursWithData[i]);
+        }
+    }
+
+    std::sort(validContoursWithData.begin(), validContoursWithData.end(),
+              ContourWithData::sortByBoundingRectXPosition);
+
+    std::string strFinalString;
+    Mat drawing = Mat::zeros(threshold_output.size(), CV_8UC3);
+
+    __android_log_print(ANDROID_LOG_ERROR, "valid SIZE", "%d", validContoursWithData.size());
+    __android_log_print(ANDROID_LOG_ERROR, "Number array SIZE", "%d",len);
+
+
+    for (int i = 0; i < validContoursWithData.size(); i++) {
+
+        Scalar color = Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+        drawContours(drawing, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point());
+        cv::rectangle(_img,
+                      validContoursWithData[i].boundingRect,
+                      cv::Scalar(0, 255, 0),
+                      2);
+        cv::Mat matROI = threshold_output(validContoursWithData[i].boundingRect);
+        cv::Mat matROIResized;
+        cv::resize(matROI, matROIResized, cv::Size(RESIZED_IMAGE_WIDTH, RESIZED_IMAGE_HEIGHT));
+        cv::Mat matROIFloat;
+        matROIResized.convertTo(matROIFloat, CV_32FC1);
+        cv::Mat matROIFlattenedFloat = matROIFloat.reshape(1, 1);
+        cv::Mat matCurrentChar(0, 0, CV_32F);
+
+//        Will not work
+/*cv::imshow("matROIResized", matROIResized);
+cv::imshow("imgTrainingNumbers", imgTrainingNumbers);*/
+
+        int intChar = c_array[i];
+//                cv::waitKey(0);
+
+/*if (intChar == 27) {
+    exit(1);
+}
+else */
+        if (std::find(intValidChars.begin(), intValidChars.end(), intChar) !=
+            intValidChars.end()) {
+
+            matClassificationInts.push_back(intChar);
+            __android_log_print(ANDROID_LOG_ERROR, "Number stored is", "%d", intChar);
+
+
+            cv::Mat matImageFloat;
+            matROIResized.convertTo(matImageFloat, CV_32FC1);
+
+            cv::Mat matImageFlattenedFloat = matImageFloat.reshape(1, 1);
+
+            matTrainingImagesAsFlattenedFloats.push_back(matImageFlattenedFloat);
+        }
+
+/* float fltCurrentChar = (float) matCurrentChar.at<float>(0, 0);
+ strFinalString = strFinalString + char(int(fltCurrentChar));*/
+    }
+
+    processed = _img;
+//    TODO Filtering Contours end
+/* ptContours=contours;
+
+ for (int i = 0; i < ptContours.size(); i++) {
+     if (cv::contourArea(ptContours[i]) > MIN_CONTOUR_AREA) {
+         cv::Rect boundingRect = cv::boundingRect(ptContours[i]);
+
+         cv::rectangle(imgTrainingNumbers, boundingRect, cv::Scalar(0, 0, 255), 2);
+
+         cv::Mat matROI = imgThresh(boundingRect);
+
+         cv::Mat matROIResized;
+         cv::resize(matROI, matROIResized, cv::Size(RESIZED_IMAGE_WIDTH, RESIZED_IMAGE_HEIGHT));
+
+         cv::imshow("matROI", matROI);
+         cv::imshow("matROIResized", matROIResized);
+         cv::imshow("imgTrainingNumbers", imgTrainingNumbers);
+
+         int intChar = cv::waitKey(0);
+
+         if (intChar == 27) {
+             exit(1);
+         }
+         else if (std::find(intValidChars.begin(), intValidChars.end(), intChar) != intValidChars.end()) {
+
+             matClassificationInts.push_back(intChar);
+
+             cv::Mat matImageFloat;
+             matROIResized.convertTo(matImageFloat, CV_32FC1);
+
+             cv::Mat matImageFlattenedFloat = matImageFloat.reshape(1, 1);
+
+             matTrainingImagesAsFlattenedFloats.push_back(matImageFlattenedFloat);
+         }
+     }
+ }
+*/
+//    std::cout << "Training complete\n\n";
+    __android_log_print(ANDROID_LOG_ERROR, "Training complete", "%s", "complete");
+
+    cv::FileStorage fsClassifications("/storage/emulated/0/EneoCV/classificationsData.xml",
+                                      cv::FileStorage::WRITE);
+
+    if (fsClassifications.isOpened() == false) {
+        __android_log_print(ANDROID_LOG_ERROR, "Training failed", "%s",
+                            "error, unable to open training classifications file, exiting program\n\n");
+
+        exit(1);
+    }
+
+    fsClassifications << "classifications" << matClassificationInts;
+    fsClassifications.release();
+
+    cv::FileStorage fsTrainingImages("/storage/emulated/0/EneoCV/imagesData.xml",
+                                     cv::FileStorage::WRITE);
+
+    if (fsTrainingImages.isOpened() == false) {
+        __android_log_print(ANDROID_LOG_ERROR, "Training failed", "%s",
+                            "error, unable to open training images file, exiting program\n\n");
+
+        exit(1);
+    }
+
+    fsTrainingImages << "images" << matTrainingImagesAsFlattenedFloats;
+    fsTrainingImages.release();
+    // release the memory so java can have it again
+    env->ReleaseIntArrayElements(digit, c_array, 0);
+
+
+//    exit(1);
+
+}
+

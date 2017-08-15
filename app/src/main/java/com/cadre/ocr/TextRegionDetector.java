@@ -244,7 +244,7 @@ public class TextRegionDetector {
         }
 
 
-        Log.e("Sec Channels", mat.channels() + "");
+//        Log.e("Sec Channels", mat.channels() + "");
 //        Imgproc.cvtColor(mat,mat, Imgproc.COLOR_GRAY2BGR);
         Imgproc.cvtColor(mat, mat_gray, Imgproc.COLOR_BGR2GRAY);
         Imgproc.blur(mat_gray, mat_gray, new Size(3, 3));
@@ -285,9 +285,9 @@ public class TextRegionDetector {
                 w = thisContour.width;
                 h = thisContour.height;
 
-
-                Log.e("contour h", h + "");
-                Log.e("contour w", w + "");
+//                TODO dont need these logs now
+//                Log.e("contour h", h + "");
+//                Log.e("contour w", w + "");
 
 
                 // Discard areas too large
@@ -388,6 +388,7 @@ public class TextRegionDetector {
             Mat drawing = zeros(threshold_output.size(), CV_8UC3);
             ArrayList<android.graphics.Rect> rectangles = new ArrayList<android.graphics.Rect>();
             ArrayList<Mat> mats = new ArrayList<Mat>();
+            Mat duplicate = _img.clone();
 
 //            Drawing each rectangle out in the image
             for (int k = 0; k < validContoursWithData.size(); k++) {
@@ -396,6 +397,7 @@ public class TextRegionDetector {
                 Rect rect = validContoursWithData.get(k).boundingRect;
                 Mat digit = new Mat(_img, rect);
                 mats.add(digit);
+
 
                 Imgproc.rectangle(_img, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0));
                 android.graphics.Rect rectToRet = cvRectToPaddedAndroidRect(rect, 0, _img);
@@ -422,7 +424,7 @@ public class TextRegionDetector {
                 if (!lock) {
                     Log.e("Mats inside", mats.size() + "");
 
-                    showDialog(mats);
+                    showDialog(mats, _img);
                 }
 
             }
@@ -516,7 +518,7 @@ public class TextRegionDetector {
         Log.e("File saved", "File saved");
     }
 
-    public void showDialog(final ArrayList<Mat> mats) {
+    public void showDialog(final ArrayList<Mat> mats, final Mat mat) {
 
         Log.e(" setting up", "up");
 
@@ -548,13 +550,19 @@ public class TextRegionDetector {
 //                splitViaString(Integer.parseInt(input.getText().toString()));
 
                 int number = Integer.parseInt(input.getText().toString());
-                boolean first=false;
-                int firstDigit = Integer.parseInt(Integer.toString(number).substring(0, 1));
-                if(firstDigit==0){
-                    first=true;
+                boolean first = false;
+                int firstDigit = Integer.parseInt(input.getText().toString().charAt(0) + "");
+                Log.e("first digit", "" + firstDigit);
+                if (firstDigit == 0) {
+                    Log.e("first", "first set true");
+                    first = true;
                 }
 
-                mainActivity.train(mats, splitViaString(number,first));
+//               TODO passing the digits one by one
+//                mainActivity.train(mats, splitViaString(number,first),mat);
+
+//                TODO passing the whole image and number for training - Prefereably use an intent to show image so as to train
+                mainActivity.trainDigits(input.getText().toString(), mat);
 //                paused = false;
 
             }
@@ -578,37 +586,16 @@ public class TextRegionDetector {
 
     }
 
-    public static ArrayList<Integer> splitViaString(int number,boolean first) {
+    public static ArrayList<Integer> splitViaString(int number, boolean first) {
 
         ArrayList<Integer> result = new ArrayList<>();
         String s = number + "";
         if (first) {
+            Log.e("first", "added first");
             result.add(0);
         }
 
-        Log.e("inside split","split");
-
-        /*for (int i = 0; i < s.length(); i++) {
-            Log.e("char read", s.charAt(i) - '0' + "");
-            result.add(s.charAt(i) - '0');
-        }*/
-/*
-        while (number > 0) {
-            int digit = (int) (number % 10);
-            Log.e("Number read", digit+"");
-            result.add(digit);
-            number /= 10;
-        }*/
-
-        /*while (number > 0) {
-            int d = number / 10;
-            int k = number - d * 10;
-            number = d;
-            result.add(k);
-            Log.e("Number read", k+"");
-//            System.out.println(k);
-        }*/
-
+        Log.e("inside split", "split");
         int digits = (int) Math.log10(number);
         for (int i = (int) Math.pow(10, digits); i > 0; i /= 10) {
             System.out.println(number / i);
@@ -617,18 +604,18 @@ public class TextRegionDetector {
             result.add(digit);
             number %= i;
         }
+
         return result; // MSD at start of list
     }
 
-    public static void covert(int number)
-    {
+
+    public static void covert(int number) {
         ArrayList<Integer> result = new ArrayList<>();
 
         String[] k = Integer.toString(number).split("");
-        System.out.println ("NUMBER OF VALUES ="+k.length);
-        int arrymy[]=new int[k.length];
-        for (int i = 0; i < k.length; i++)
-        {
+        System.out.println("NUMBER OF VALUES =" + k.length);
+        int arrymy[] = new int[k.length];
+        for (int i = 0; i < k.length; i++) {
             int newInt = Integer.parseInt(k[i]);
             result.add(newInt);
             Log.e("Number read", newInt + "");
